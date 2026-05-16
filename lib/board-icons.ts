@@ -74,7 +74,11 @@ export function loadBoardIconAtlas(): Promise<IconAtlas> {
     texture.needsUpdate = true;
 
     return { texture, uvBySlug, uvByIndex };
-  })();
+  })().catch((err) => {
+    // Allow a future caller to retry instead of permanently caching the rejection.
+    _atlasPromise = null;
+    throw err;
+  });
 
   return _atlasPromise;
 }
