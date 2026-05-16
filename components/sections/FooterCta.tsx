@@ -36,7 +36,15 @@ export function FooterCta() {
           © {new Date().getFullYear()} Draftout · Minecraft fan project
         </p>
         <p className="mt-2 text-xs text-muted/70">
-          {shared.footerAttribution}
+          Goal icons from Faithful 32× — used under the Faithful License v3.{" "}
+          <a
+            href="https://faithfulpack.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-muted/40 hover:decoration-emerald hover:text-emerald"
+          >
+            faithfulpack.net
+          </a>
         </p>
       </motion.div>
     </footer>
