@@ -10,6 +10,6 @@
   "title": "DRAFTOUT",
   "tagline": "Minecraft 1v1 · Lockout Bingo",
   "scrollPrompt": "Scroll to expand",
-  "bgImage": "/hero/bg.jpg",
-  "media": "/hero/media.jpg"
+  "bgImage": "/hero/Minecraft_bg.jpeg",
+  "media": "/hero/bingocard.png"
 }
