@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
-import type { PlayerId } from "@/lib/board-demo";
+import type { PlayerId } from "@/content/types";
 
 type ClaimEvent = { player: PlayerId; index: number; tick: number };
 
