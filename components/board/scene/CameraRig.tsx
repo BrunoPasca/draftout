@@ -3,7 +3,6 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { useMotionValue, useSpring } from "framer-motion";
-import * as THREE from "three";
 import { CELL_GAP, CELL_SIZE, GRID } from "@/components/board/scene/BoardSurface";
 import type { ClaimEvent } from "@/lib/board-timeline";
 
@@ -101,7 +100,7 @@ export function CameraRig({ lastClaim, isClimax, active, reduced }: CameraRigPro
     }
 
     camera.position.set(baseX, sy.get(), baseZ);
-    camera.lookAt(new THREE.Vector3(stx.get(), sty.get(), stz.get()));
+    camera.lookAt(stx.get(), sty.get(), stz.get());
   });
 
   return null;
