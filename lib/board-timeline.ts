@@ -94,7 +94,7 @@ export function useBoardTimeline({ active }: UseBoardTimelineOpts): TimelineStat
       return;
     }
 
-    if (step >= SCRIPT_INDICES.length || scores.a >= SHARED.winTarget || scores.b >= SHARED.winTarget) {
+    if (step >= SCRIPT_INDICES.length) {
       resetTimer.current = setTimeout(reset, RESET_DELAY_MS);
       return () => {
         if (resetTimer.current) clearTimeout(resetTimer.current);
@@ -115,7 +115,7 @@ export function useBoardTimeline({ active }: UseBoardTimelineOpts): TimelineStat
     return () => {
       if (tickTimer.current) clearTimeout(tickTimer.current);
     };
-  }, [active, reduced, step, scores.a, scores.b, reset]);
+  }, [active, reduced, step, reset]);
 
   const activePlayer: PlayerId = SCRIPT_INDICES[step % SCRIPT_INDICES.length]?.player ?? "a";
   const isClimax = step >= SHARED.winTarget;
