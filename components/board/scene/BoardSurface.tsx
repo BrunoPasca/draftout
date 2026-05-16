@@ -16,7 +16,7 @@ const CELL_GAP = 0.05;
 const SURFACE_WIDTH = 1.2;       // matches old table top width
 const CELL_SIZE = (SURFACE_WIDTH - CELL_GAP * (GRID - 1)) / GRID;
 
-export function BoardSurface({ owners, latestIndex, surfaceY = 0.54 }: BoardSurfaceProps) {
+export function BoardSurface({ owners, latestIndex, surfaceY = 0.53 }: BoardSurfaceProps) {
   const [atlas, setAtlas] = useState<IconAtlas | null>(null);
 
   useEffect(() => {

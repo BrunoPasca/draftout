@@ -6,10 +6,10 @@ import { useMotionValue, useSpring } from "framer-motion";
 import { CELL_GAP, CELL_SIZE, GRID } from "@/components/board/scene/BoardSurface";
 import type { ClaimEvent } from "@/lib/board-timeline";
 
-const WIDE_POS: [number, number, number] = [2.4, 2.0, 2.6];
-const WIDE_TARGET: [number, number, number] = [0, 0.4, 0];
-const CLIMAX_POS: [number, number, number] = [0.0, 1.2, 2.0];
-const CLIMAX_TARGET: [number, number, number] = [0, 0.5, 0];
+const WIDE_POS: [number, number, number] = [2.6, 2.2, 2.8];
+const WIDE_TARGET: [number, number, number] = [0, 0.15, 0];
+const CLIMAX_POS: [number, number, number] = [0.0, 1.4, 2.2];
+const CLIMAX_TARGET: [number, number, number] = [0, 0.3, 0];
 
 const SPRING = { stiffness: 60, damping: 16, mass: 1 };
 
@@ -25,7 +25,7 @@ function cellWorldPos(index: number): [number, number, number] {
   const row = Math.floor(index / GRID);
   const x = (col - (GRID - 1) / 2) * (CELL_SIZE + CELL_GAP);
   const z = (row - (GRID - 1) / 2) * (CELL_SIZE + CELL_GAP);
-  return [x, 0.54, z];
+  return [x, 0.53, z];
 }
 
 export function CameraRig({ lastClaim, isClimax, active, reduced }: CameraRigProps) {
