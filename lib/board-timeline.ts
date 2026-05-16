@@ -28,6 +28,7 @@ export type TimelineState = {
   lastClaim: ClaimEvent | null;
   activePlayer: PlayerId;
   isClimax: boolean;
+  winner: PlayerId | null;
   reduced: boolean;
 };
 
@@ -68,6 +69,9 @@ export function useBoardTimeline({ active }: UseBoardTimelineOpts): TimelineStat
     );
   }, [owners]);
 
+  const winner: PlayerId | null =
+    scores.a >= SHARED.winTarget ? "a" : scores.b >= SHARED.winTarget ? "b" : null;
+
   const reset = useCallback(() => {
     setOwners([...INITIAL_OWNERS]);
     setStep(0);
@@ -85,16 +89,17 @@ export function useBoardTimeline({ active }: UseBoardTimelineOpts): TimelineStat
       // Reduced motion: jump straight to a representative mid-game snapshot.
       if (step === 0) {
         const snap = [...INITIAL_OWNERS];
-        SCRIPT_INDICES.slice(0, 8).forEach((c) => {
+        SCRIPT_INDICES.slice(0, 10).forEach((c) => {
           snap[c.index] = c.player;
         });
         setOwners(snap);
-        setStep(8);
+        setStep(10);
       }
       return;
     }
 
-    if (step >= SCRIPT_INDICES.length) {
+    // Loop terminus: a player has won, OR the script is exhausted.
+    if (winner !== null || step >= SCRIPT_INDICES.length) {
       resetTimer.current = setTimeout(reset, RESET_DELAY_MS);
       return () => {
         if (resetTimer.current) clearTimeout(resetTimer.current);
@@ -115,12 +120,12 @@ export function useBoardTimeline({ active }: UseBoardTimelineOpts): TimelineStat
     return () => {
       if (tickTimer.current) clearTimeout(tickTimer.current);
     };
-  }, [active, reduced, step, reset]);
+  }, [active, reduced, step, winner, reset]);
 
   const activePlayer: PlayerId = SCRIPT_INDICES[step % SCRIPT_INDICES.length]?.player ?? "a";
-  const isClimax = step >= SHARED.winTarget;
+  const isClimax = winner !== null;
 
-  return { step, owners, scores, lastClaim, activePlayer, isClimax, reduced };
+  return { step, owners, scores, lastClaim, activePlayer, isClimax, winner, reduced };
 }
 
 export { GOALS, SCRIPT_INDICES, SHARED };
