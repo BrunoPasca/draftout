@@ -1,107 +1,77 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import * as THREE from "three";
 
-function buildPlankSideTexture(): THREE.CanvasTexture {
-  const canvas = document.createElement("canvas");
-  canvas.width = 64;
-  canvas.height = 64;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("plank side texture: 2d ctx unavailable");
-  ctx.fillStyle = "#5a3d1e";
-  ctx.fillRect(0, 0, 64, 64);
-  ctx.fillStyle = "#a67c3d";
-  for (let y = 0; y < 64; y += 8) ctx.fillRect(0, y, 64, 6);
-  ctx.strokeStyle = "#5a3d1e";
-  ctx.lineWidth = 1;
-  for (let x = 0; x < 64; x += 16) {
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, 64);
-    ctx.stroke();
-  }
-  // Subtle vertical knots to read as wood
-  ctx.fillStyle = "#7c5a2c";
-  ctx.fillRect(10, 12, 2, 6);
-  ctx.fillRect(34, 28, 2, 6);
-  ctx.fillRect(50, 44, 2, 6);
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.magFilter = THREE.NearestFilter;
-  tex.minFilter = THREE.NearestFilter;
-  tex.wrapS = THREE.RepeatWrapping;
-  tex.wrapT = THREE.RepeatWrapping;
-  return tex;
-}
+type LoadedTextures = {
+  top: THREE.Texture;
+  side: THREE.Texture;
+  front: THREE.Texture;
+};
 
-function buildPlankTopTexture(): THREE.CanvasTexture {
-  // Slightly darker base + visible 3×3 craft-grid pattern at the corners
-  // (most of the centre will be hidden by the BoardSurface cells).
-  const canvas = document.createElement("canvas");
-  canvas.width = 64;
-  canvas.height = 64;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("plank top texture: 2d ctx unavailable");
-  // Base: dark wood
-  ctx.fillStyle = "#3f2a13";
-  ctx.fillRect(0, 0, 64, 64);
-  // Lighter plank highlights running diagonally — gives "worktop" feel
-  ctx.fillStyle = "#6a4a1f";
-  ctx.fillRect(0, 4, 64, 4);
-  ctx.fillRect(0, 20, 64, 4);
-  ctx.fillRect(0, 36, 64, 4);
-  ctx.fillRect(0, 52, 64, 4);
-  // 3×3 craft grid inset (visible at the corners around the board)
-  ctx.strokeStyle = "#1a1108";
-  ctx.lineWidth = 2;
-  ctx.strokeRect(8, 8, 48, 48);
-  ctx.beginPath();
-  ctx.moveTo(8, 24);
-  ctx.lineTo(56, 24);
-  ctx.moveTo(8, 40);
-  ctx.lineTo(56, 40);
-  ctx.moveTo(24, 8);
-  ctx.lineTo(24, 56);
-  ctx.moveTo(40, 8);
-  ctx.lineTo(40, 56);
-  ctx.stroke();
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.magFilter = THREE.NearestFilter;
-  tex.minFilter = THREE.NearestFilter;
-  return tex;
+function loadCraftingTextures(): Promise<LoadedTextures> {
+  const loader = new THREE.TextureLoader();
+  loader.setCrossOrigin("anonymous");
+
+  const configure = (tex: THREE.Texture): THREE.Texture => {
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.NearestFilter;
+    tex.wrapS = THREE.ClampToEdgeWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.needsUpdate = true;
+    return tex;
+  };
+
+  return Promise.all([
+    new Promise<THREE.Texture>((resolve, reject) =>
+      loader.load("/board/textures/crafting_table_top.png", (t) => resolve(configure(t)), undefined, reject),
+    ),
+    new Promise<THREE.Texture>((resolve, reject) =>
+      loader.load("/board/textures/crafting_table_side.png", (t) => resolve(configure(t)), undefined, reject),
+    ),
+    new Promise<THREE.Texture>((resolve, reject) =>
+      loader.load("/board/textures/crafting_table_front.png", (t) => resolve(configure(t)), undefined, reject),
+    ),
+  ]).then(([top, side, front]) => ({ top, side, front }));
 }
 
 export function CraftingTable() {
-  const sideTex = useMemo(buildPlankSideTexture, []);
-  const topTex = useMemo(buildPlankTopTexture, []);
+  const [textures, setTextures] = useState<LoadedTextures | null>(null);
 
-  // BoxGeometry face order: +x, -x, +y, -y, +z, -z (right, left, top, bottom, front, back)
-  const materials = useMemo(
-    () => [
-      new THREE.MeshStandardMaterial({ map: sideTex, roughness: 0.78 }),
-      new THREE.MeshStandardMaterial({ map: sideTex, roughness: 0.78 }),
-      new THREE.MeshStandardMaterial({ map: topTex, roughness: 0.6 }),
-      new THREE.MeshStandardMaterial({ map: sideTex, roughness: 0.78 }),
-      new THREE.MeshStandardMaterial({ map: sideTex, roughness: 0.78 }),
-      new THREE.MeshStandardMaterial({ map: sideTex, roughness: 0.78 }),
-    ],
-    [sideTex, topTex],
-  );
+  useEffect(() => {
+    let cancelled = false;
+    loadCraftingTextures().then((t) => {
+      if (!cancelled) setTextures(t);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
+  if (!textures) return null;
+
+  // BoxGeometry face order: +x, -x, +y (top), -y (bottom), +z (front), -z (back)
+  // Real Minecraft crafting table: 'front' texture goes on the two faces a player would
+  // normally see (front + one side); 'side' texture on the other two sides. We use front
+  // on +z and +x for visual interest, side on -z and -x.
+  const materials = [
+    new THREE.MeshStandardMaterial({ map: textures.front, roughness: 0.78 }), // +x
+    new THREE.MeshStandardMaterial({ map: textures.side, roughness: 0.78 }),  // -x
+    new THREE.MeshStandardMaterial({ map: textures.top, roughness: 0.65 }),   // +y top
+    new THREE.MeshStandardMaterial({ map: textures.side, roughness: 0.78 }),  // -y bottom
+    new THREE.MeshStandardMaterial({ map: textures.front, roughness: 0.78 }), // +z front
+    new THREE.MeshStandardMaterial({ map: textures.side, roughness: 0.78 }),  // -z back
+  ];
+
+  // Block size 1.5 — bigger than before so the board sits clearly on top with margin.
   return (
     <group position={[0, 0, 0]}>
-      {/* Cubic Minecraft-block body, centered at y=0, top face at y=0.5 */}
-      <mesh
-        position={[0, 0, 0]}
-        castShadow
-        receiveShadow
-        material={materials}
-      >
-        <boxGeometry args={[1.0, 1.0, 1.0]} />
+      <mesh position={[0, 0, 0]} castShadow receiveShadow material={materials}>
+        <boxGeometry args={[1.5, 1.5, 1.5]} />
       </mesh>
-      {/* Subtle emerald edge accent just above the top, matches brand */}
-      <mesh position={[0, 0.51, 0]}>
-        <boxGeometry args={[1.03, 0.012, 1.03]} />
+      {/* Emerald edge accent just above the top, brand reinforcement */}
+      <mesh position={[0, 0.76, 0]}>
+        <boxGeometry args={[1.54, 0.014, 1.54]} />
         <meshStandardMaterial
           color="#3dd68c"
           emissive="#3dd68c"
