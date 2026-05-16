@@ -5,7 +5,6 @@ import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useBoardTimeline } from "@/lib/board-timeline";
 import { BoardHud } from "@/components/board/hud/BoardHud";
-import { BorderBeam } from "@/components/ui/BorderBeam";
 import type { ClaimEvent } from "@/lib/board-timeline";
 
 const BoardScene = dynamic(
@@ -14,7 +13,7 @@ const BoardScene = dynamic(
     ssr: false,
     loading: () => (
       <div
-        className="h-full w-full animate-pulse rounded-2xl border border-emerald/20 bg-surface-raised"
+        className="h-full w-full animate-pulse border border-emerald/20 bg-surface-raised"
         aria-hidden
       />
     ),
@@ -47,7 +46,7 @@ export function BoardShowcase() {
   return (
     <motion.div
       ref={sectionRef}
-      className="relative mx-auto h-[360px] w-full max-w-3xl overflow-hidden rounded-2xl sm:h-[480px] md:h-[540px] lg:h-[600px]"
+      className="relative w-full h-[360px] overflow-hidden sm:h-[520px] md:h-[600px] lg:h-[680px]"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-80px" }}
@@ -68,13 +67,6 @@ export function BoardShowcase() {
         lastClaim={timeline.lastClaim}
         isClimax={timeline.isClimax}
         winner={timeline.winner}
-      />
-      <BorderBeam
-        size={280}
-        duration={14}
-        borderWidth={1.5}
-        colorFrom="var(--color-emerald)"
-        colorTo="var(--color-amber)"
       />
     </motion.div>
   );

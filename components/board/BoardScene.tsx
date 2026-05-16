@@ -36,7 +36,7 @@ export function BoardScene({
 
   return (
     <div
-      className={`${className ?? ""} relative overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_at_center,rgba(61,214,140,0.15),rgba(12,15,20,0.4)_65%)]`}
+      className={`${className ?? ""} relative overflow-hidden`}
       aria-hidden
     >
       <Canvas
@@ -49,7 +49,7 @@ export function BoardScene({
         <ambientLight intensity={0.95} />
         <directionalLight position={[5, 8, 4]} intensity={1.65} castShadow />
         <directionalLight position={[-4, 3, -2]} intensity={0.55} />
-        <pointLight position={[0, 2.5, 2]} intensity={1} color="#3dd68c" />
+        <pointLight position={[0, 2.5, 2]} intensity={0.35} color="#3dd68c" />
 
         <CraftingTable />
         <BoardSurface owners={owners} latestIndex={latestIndex} />
