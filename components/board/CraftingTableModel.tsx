@@ -12,9 +12,9 @@ function usePlankTexture() {
     canvas.width = 64;
     canvas.height = 64;
     const ctx = canvas.getContext("2d")!;
-    ctx.fillStyle = "#6b4f2a";
+    ctx.fillStyle = "#5a3d1e";
     ctx.fillRect(0, 0, 64, 64);
-    ctx.fillStyle = "#8b6914";
+    ctx.fillStyle = "#a67c3d";
     for (let y = 0; y < 64; y += 8) {
       ctx.fillRect(0, y, 64, 6);
     }
@@ -41,7 +41,7 @@ function useGridTopTexture() {
     canvas.width = 64;
     canvas.height = 64;
     const ctx = canvas.getContext("2d")!;
-    ctx.fillStyle = "#9c7b4f";
+    ctx.fillStyle = "#c49a6c";
     ctx.fillRect(0, 0, 64, 64);
     ctx.strokeStyle = "#5a3d1e";
     ctx.lineWidth = 2;
@@ -97,10 +97,10 @@ export function CraftingTableModel({ paused }: CraftingTableModelProps) {
   });
 
   return (
-    <group ref={group} position={[0, -0.15, 0]}>
+    <group ref={group} position={[0, -0.1, 0]} scale={1.15}>
       <mesh position={[0, 0.2, 0]} castShadow receiveShadow>
         <boxGeometry args={[1.1, 0.45, 1.1]} />
-        <meshStandardMaterial map={plankTex} roughness={0.85} />
+        <meshStandardMaterial map={plankTex} roughness={0.75} />
       </mesh>
       <mesh position={[0, 0.48, 0]} castShadow>
         <boxGeometry args={[1.2, 0.12, 1.2]} />
