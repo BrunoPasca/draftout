@@ -2,10 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, viewportOnce } from "@/lib/motion";
-import sharedContent from "@/content/shared.json";
-import type { SharedContent } from "@/content/types";
-
-const shared: SharedContent = sharedContent as SharedContent;
 
 export function FooterCta() {
   const reduced = useReducedMotion();
