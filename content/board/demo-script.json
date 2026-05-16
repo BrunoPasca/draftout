@@ -1,0 +1,15 @@
+[
+  { "cell": "stone-pick",   "player": "a" },
+  { "cell": "zombie-kill",  "player": "b" },
+  { "cell": "diamond",      "player": "a" },
+  { "cell": "nether-portal", "player": "b" },
+  { "cell": "lava-bucket",  "player": "a" },
+  { "cell": "blaze-rod",    "player": "b" },
+  { "cell": "tame-wolf",    "player": "a" },
+  { "cell": "iron-ingot",   "player": "b" },
+  { "cell": "brew-potion",  "player": "a" },
+  { "cell": "enchant-table","player": "b" },
+  { "cell": "wheat-farm",   "player": "a" },
+  { "cell": "stronghold",   "player": "b" },
+  { "cell": "village",      "player": "a" }
+]
