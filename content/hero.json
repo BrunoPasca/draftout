@@ -9,5 +9,7 @@
   "secondaryCta": { "label": "See the board", "href": "#board" },
   "title": "DRAFTOUT",
   "tagline": "Minecraft 1v1 · Lockout Bingo",
-  "scrollPrompt": "Scroll to expand"
+  "scrollPrompt": "Scroll to expand",
+  "bgImage": "/hero/bg.jpg",
+  "media": "/hero/media.jpg"
 }

@@ -11,8 +11,8 @@ export function Hero() {
   return (
     <ScrollExpandMedia
       mediaType="image"
-      mediaSrc="/board/icons/diamond.png"
-      bgImageSrc="/board/textures/crafting_table_top.png"
+      mediaSrc={HERO.media ?? "/hero/media.jpg"}
+      bgImageSrc={HERO.bgImage ?? "/hero/bg.jpg"}
       title={HERO.title ?? "DRAFTOUT"}
       date={HERO.tagline ?? "Minecraft 1v1"}
       scrollToExpand={HERO.scrollPrompt ?? "Scroll to expand"}

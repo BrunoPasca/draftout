@@ -31,6 +31,8 @@ export interface HeroContent {
   title?: string;
   tagline?: string;
   scrollPrompt?: string;
+  bgImage?: string;
+  media?: string;
 }
 
 export interface SharedContent {
