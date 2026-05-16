@@ -69,16 +69,6 @@ export function CraftingTable() {
       <mesh position={[0, 0, 0]} castShadow receiveShadow material={materials}>
         <boxGeometry args={[1.5, 1.5, 1.5]} />
       </mesh>
-      {/* Emerald edge accent just above the top, brand reinforcement */}
-      <mesh position={[0, 0.76, 0]}>
-        <boxGeometry args={[1.54, 0.014, 1.54]} />
-        <meshStandardMaterial
-          color="#3dd68c"
-          emissive="#3dd68c"
-          emissiveIntensity={0.45}
-          roughness={0.4}
-        />
-      </mesh>
     </group>
   );
 }
