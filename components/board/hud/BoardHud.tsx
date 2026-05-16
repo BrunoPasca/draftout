@@ -3,7 +3,7 @@
 import sharedJson from "@/content/shared.json";
 import type { SharedContent, PlayerId } from "@/content/types";
 import { ClaimTicker } from "@/components/board/hud/ClaimTicker";
-import { LockoutStamp } from "@/components/board/hud/LockoutStamp";
+import { WinStamp } from "@/components/board/hud/WinStamp";
 import { ScoreFlip } from "@/components/board/hud/ScoreFlip";
 import type { ClaimEvent } from "@/lib/board-timeline";
 
@@ -35,7 +35,7 @@ export function BoardHud({ scores, activePlayer, history, lastClaim, isClimax, w
         <ClaimTicker history={history} lastClaim={lastClaim} />
       </div>
 
-      <LockoutStamp visible={isClimax} winner={winner} />
+      <WinStamp visible={isClimax} winner={winner} />
     </div>
   );
 }
