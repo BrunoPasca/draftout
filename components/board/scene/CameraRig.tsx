@@ -4,9 +4,9 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import type { ClaimEvent } from "@/lib/board-timeline";
 
-const WIDE_POS: [number, number, number] = [2.6, 2.2, 2.8];
-const CLIMAX_POS: [number, number, number] = [0.0, 1.6, 2.4];
-const CLIMAX_TARGET_Y = 0.3;
+const WIDE_POS: [number, number, number] = [3.2, 2.6, 3.4];
+const CLIMAX_POS: [number, number, number] = [0.0, 1.9, 2.9];
+const CLIMAX_TARGET_Y = 0.5;
 
 type CameraRigProps = {
   lastClaim: ClaimEvent | null;
@@ -38,7 +38,7 @@ export function CameraRig({ isClimax, active, reduced }: CameraRigProps) {
     const py = WIDE_POS[1] * (1 - t) + CLIMAX_POS[1] * t;
     const pz = WIDE_POS[2] * (1 - t) + CLIMAX_POS[2] * t;
     camera.position.set(px, py, pz);
-    camera.lookAt(0, CLIMAX_TARGET_Y * t + 0.15 * (1 - t), 0);
+    camera.lookAt(0, CLIMAX_TARGET_Y * t + 0.4 * (1 - t), 0);
   });
 
   return null;

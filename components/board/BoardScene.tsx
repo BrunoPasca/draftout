@@ -73,11 +73,11 @@ export function BoardScene({
         )}
 
         <ContactShadows
-          position={[0, -0.5, 0]}
+          position={[0, -0.75, 0]}
           opacity={0.55}
-          scale={3.2}
+          scale={4}
           blur={2}
-          far={1.4}
+          far={1.6}
         />
 
         {enablePost && (

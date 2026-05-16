@@ -47,7 +47,7 @@ export function BoardShowcase() {
   return (
     <motion.div
       ref={sectionRef}
-      className="relative mx-auto h-[300px] w-full max-w-3xl overflow-hidden rounded-2xl sm:h-[420px] md:h-[480px] lg:h-[520px]"
+      className="relative mx-auto h-[360px] w-full max-w-3xl overflow-hidden rounded-2xl sm:h-[480px] md:h-[540px] lg:h-[600px]"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-80px" }}

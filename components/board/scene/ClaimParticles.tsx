@@ -30,7 +30,7 @@ function cellWorldPos(index: number): THREE.Vector3 {
   const row = Math.floor(index / GRID);
   const x = (col - (GRID - 1) / 2) * (CELL_SIZE + CELL_GAP);
   const z = (row - (GRID - 1) / 2) * (CELL_SIZE + CELL_GAP);
-  return new THREE.Vector3(x, 0.6, z);
+  return new THREE.Vector3(x, 0.85, z);
 }
 
 type ClaimParticlesProps = {

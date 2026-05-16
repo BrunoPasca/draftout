@@ -12,11 +12,11 @@ type BoardSurfaceProps = {
 };
 
 const GRID = 5;
-const CELL_GAP = 0.05;
-const SURFACE_WIDTH = 1.2;       // matches old table top width
+const CELL_GAP = 0.07;
+const SURFACE_WIDTH = 1.42;      // sits on top of the 1.5-wide cube with ~0.04 margin all around
 const CELL_SIZE = (SURFACE_WIDTH - CELL_GAP * (GRID - 1)) / GRID;
 
-export function BoardSurface({ owners, latestIndex, surfaceY = 0.53 }: BoardSurfaceProps) {
+export function BoardSurface({ owners, latestIndex, surfaceY = 0.77 }: BoardSurfaceProps) {
   const [atlas, setAtlas] = useState<IconAtlas | null>(null);
 
   useEffect(() => {
