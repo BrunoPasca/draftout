@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { BoardClaimProvider } from "@/lib/board-claim-context";
 import { useBoardTimeline } from "@/lib/board-timeline";
 import { BoardHud } from "@/components/board/hud/BoardHud";
 import { BorderBeam } from "@/components/ui/BorderBeam";
@@ -46,38 +45,36 @@ export function BoardShowcase() {
   const latestIndex = timeline.lastClaim?.index ?? null;
 
   return (
-    <BoardClaimProvider>
-      <motion.div
-        ref={sectionRef}
-        className="relative mx-auto h-[420px] w-full max-w-3xl overflow-hidden rounded-2xl sm:h-[480px] lg:h-[520px]"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6 }}
-      >
-        <BoardScene
-          active={inView}
-          owners={timeline.owners}
-          latestIndex={latestIndex}
-          lastClaim={timeline.lastClaim}
-          isClimax={timeline.isClimax}
-          className="h-full w-full"
-        />
-        <BoardHud
-          scores={timeline.scores}
-          activePlayer={timeline.activePlayer}
-          history={history}
-          lastClaim={timeline.lastClaim}
-          isClimax={timeline.isClimax}
-        />
-        <BorderBeam
-          size={280}
-          duration={14}
-          borderWidth={1.5}
-          colorFrom="var(--color-emerald)"
-          colorTo="var(--color-amber)"
-        />
-      </motion.div>
-    </BoardClaimProvider>
+    <motion.div
+      ref={sectionRef}
+      className="relative mx-auto h-[420px] w-full max-w-3xl overflow-hidden rounded-2xl sm:h-[480px] lg:h-[520px]"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6 }}
+    >
+      <BoardScene
+        active={inView}
+        owners={timeline.owners}
+        latestIndex={latestIndex}
+        lastClaim={timeline.lastClaim}
+        isClimax={timeline.isClimax}
+        className="h-full w-full"
+      />
+      <BoardHud
+        scores={timeline.scores}
+        activePlayer={timeline.activePlayer}
+        history={history}
+        lastClaim={timeline.lastClaim}
+        isClimax={timeline.isClimax}
+      />
+      <BorderBeam
+        size={280}
+        duration={14}
+        borderWidth={1.5}
+        colorFrom="var(--color-emerald)"
+        colorTo="var(--color-amber)"
+      />
+    </motion.div>
   );
 }
