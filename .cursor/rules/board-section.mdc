@@ -1,0 +1,28 @@
+---
+description: The Board section — interactive bingo grid showcase
+globs: "**/components/sections/**/Board*.tsx,**/components/board/**"
+alwaysApply: false
+---
+
+# The Board section
+
+Primary visual explainer for Draftout: **25 goals, race to 13, lockout**.
+
+## UI goals
+
+- 5×5 bingo grid that feels like the real game, not a marketing icon grid.
+- Show **lockout** — completed cell claimed by one player, unavailable to the other (color + locked state).
+- Show **win condition** — progress toward 13 (counter, bar, or highlighted count).
+- Use Framer Motion for cell claim, lock, and progress updates; respect `useReducedMotion()`.
+
+## Structure
+
+- `components/sections/Board.tsx` — section wrapper, copy, layout.
+- `components/board/BingoGrid.tsx`, `BoardCell.tsx`, optional `BoardProgress.tsx` — reusable, testable pieces.
+- Demo state can be static/mock for v1; design for later live or scripted replay.
+
+## Avoid
+
+- Static-only screenshot with no interaction.
+- Generic 3-column feature cards duplicating “How it works”.
+- CSS keyframe animations for cell states.

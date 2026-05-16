@@ -1,0 +1,17 @@
+---
+description: Draftout landing page — stack and conventions
+alwaysApply: true
+---
+
+# Draftout
+
+Next.js 15 App Router **product landing**: TypeScript, Tailwind CSS, Framer Motion.
+
+- Minecraft 1v1 mode: draft → race → lockout (13/25 goals). Free; no pricing on v1.
+- Sections: Hero → How it works (Draft/Race/Lockout) → **Board** (interactive 5×5 showcase) → Competitive/Elo → Social proof → FAQ → CTA.
+- Static-first; SEO and performance over interactivity.
+- Sections in `components/sections/`; shared UI in `components/`.
+- Use `next/image`, semantic landmarks, one clear CTA per viewport.
+- Dev: `npm run dev` or `docker compose up` (port 3000).
+
+See `AGENTS.md` for full stack and animation rules.

@@ -1,0 +1,39 @@
+---
+description: Framer Motion animation standards for all UI motion
+globs: "**/*.{tsx,jsx}"
+alwaysApply: false
+---
+
+# Framer Motion
+
+Use **Framer Motion for all animations**. No CSS keyframe reveals, no GSAP/Lottie for standard UI motion.
+
+## Patterns
+
+**Scroll fade-in**
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-80px" }}
+  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+/>
+```
+
+**Staggered children**
+```tsx
+const container = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } };
+const item = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } };
+```
+
+**Interactive hover**
+```tsx
+<motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+  transition={{ duration: 0.25 }} />
+```
+
+## Rules
+
+- Apply scroll-triggered fades, staggered reveals, and smooth hover transitions on interactive elements.
+- Gate decorative motion with `useReducedMotion()`.
+- Reuse variants from `lib/motion.ts` when they exist; avoid duplicating easing/duration constants.
