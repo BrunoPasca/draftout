@@ -10,10 +10,12 @@ import {
   type PlayerId,
   WIN_TARGET,
 } from "@/lib/board-demo";
+import { useBoardClaim } from "@/lib/board-claim-context";
 
 const INITIAL_OWNERS = Array.from<PlayerId | null>({ length: 25 }).fill(null);
 
 export function BingoGrid() {
+  const { notifyClaim } = useBoardClaim();
   const reduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: false, margin: "-100px" });
@@ -55,11 +57,12 @@ export function BingoGrid() {
         return next;
       });
       setLatestIndex(claim.index);
+      notifyClaim(claim.player, claim.index);
       setStep((s) => s + 1);
     }, 900);
 
     return () => clearTimeout(timeout);
-  }, [inView, reduced, step, scores.a, scores.b, reset]);
+  }, [inView, reduced, step, scores.a, scores.b, reset, notifyClaim]);
 
   useEffect(() => {
     if (reduced && inView && step === 0) {

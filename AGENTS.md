@@ -37,6 +37,7 @@ Treat this section as a **mini product demo**, not a static screenshot.
 - **Pair identity**: subtle Player A / Player B (or team colors) so lockout reads instantly.
 - Keep it **accessible**: keyboard-focusable cells, `useReducedMotion()` simplifies to instant state changes.
 - Prefer CSS grid for layout; **all motion via Framer Motion** on cells and progress UI.
+- **3D centerpiece:** React Three Fiber crafting table (procedural textures); visible on mobile; pulses on claim via `BoardClaimProvider`.
 
 ## Stack (target)
 
