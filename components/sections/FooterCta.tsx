@@ -2,6 +2,10 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, viewportOnce } from "@/lib/motion";
+import sharedContent from "@/content/shared.json";
+import type { SharedContent } from "@/content/types";
+
+const shared: SharedContent = sharedContent as SharedContent;
 
 export function FooterCta() {
   const reduced = useReducedMotion();
@@ -30,6 +34,9 @@ export function FooterCta() {
         </motion.a>
         <p className="mt-12 text-sm text-muted">
           © {new Date().getFullYear()} Draftout · Minecraft fan project
+        </p>
+        <p className="mt-2 text-xs text-muted/70">
+          {shared.footerAttribution}
         </p>
       </motion.div>
     </footer>
