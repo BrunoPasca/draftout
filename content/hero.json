@@ -6,5 +6,8 @@
   },
   "subhead": "Competitive lockout bingo for two players — identical worlds, same seed, first to complete 13 of 25 drafted goals wins.",
   "primaryCta": { "label": "Play free", "href": "#cta" },
-  "secondaryCta": { "label": "See the board", "href": "#board" }
+  "secondaryCta": { "label": "See the board", "href": "#board" },
+  "title": "DRAFTOUT",
+  "tagline": "Minecraft 1v1 · Lockout Bingo",
+  "scrollPrompt": "Scroll to expand"
 }

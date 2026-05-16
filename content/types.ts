@@ -28,6 +28,9 @@ export interface HeroContent {
   subhead: string;
   primaryCta: CtaContent;
   secondaryCta: CtaContent;
+  title?: string;
+  tagline?: string;
+  scrollPrompt?: string;
 }
 
 export interface SharedContent {
