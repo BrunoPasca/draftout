@@ -67,6 +67,7 @@ export function BoardShowcase() {
         history={history}
         lastClaim={timeline.lastClaim}
         isClimax={timeline.isClimax}
+        winner={timeline.winner}
       />
       <BorderBeam
         size={280}

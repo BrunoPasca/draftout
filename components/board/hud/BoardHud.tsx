@@ -15,9 +15,10 @@ type BoardHudProps = {
   history: ClaimEvent[];
   lastClaim: ClaimEvent | null;
   isClimax: boolean;
+  winner: PlayerId | null;
 };
 
-export function BoardHud({ scores, activePlayer, history, lastClaim, isClimax }: BoardHudProps) {
+export function BoardHud({ scores, activePlayer, history, lastClaim, isClimax, winner }: BoardHudProps) {
   return (
     <div className="pointer-events-none absolute inset-0 z-20 flex flex-col justify-between p-4 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -34,7 +35,7 @@ export function BoardHud({ scores, activePlayer, history, lastClaim, isClimax }:
         <ClaimTicker history={history} lastClaim={lastClaim} />
       </div>
 
-      <LockoutStamp visible={isClimax} />
+      <LockoutStamp visible={isClimax} winner={winner} />
     </div>
   );
 }
