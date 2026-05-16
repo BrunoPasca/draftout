@@ -34,4 +34,8 @@ body {
   html {
     scroll-behavior: auto;
   }
+  /* Halt BorderBeam decorative motion (per design §5). */
+  [class*="animate-[border-beam"]::after {
+    animation: none !important;
+  }
 }
