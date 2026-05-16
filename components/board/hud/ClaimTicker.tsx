@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { GOALS } from "@/lib/board-timeline";
 import type { ClaimEvent } from "@/lib/board-timeline";
@@ -25,6 +26,7 @@ function labelForSlug(slug: string): string {
 
 export function ClaimTicker({ history, lastClaim }: ClaimTickerProps) {
   const reduced = useReducedMotion();
+  const [paused, setPaused] = useState(false);
   const items = history.slice(-6);
   if (items.length === 0 && lastClaim) items.push(lastClaim);
 
@@ -48,10 +50,14 @@ export function ClaimTicker({ history, lastClaim }: ClaimTickerProps) {
   }
 
   return (
-    <div className="group relative w-full overflow-hidden">
+    <div
+      className="group relative w-full overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <motion.div
         className="flex shrink-0 gap-3 whitespace-nowrap"
-        animate={{ x: ["0%", "-50%"] }}
+        animate={paused ? {} : { x: ["0%", "-50%"] }}
         transition={{ duration: 14, ease: "linear", repeat: Infinity }}
       >
         {[...items, ...items].map((c, i) => (
