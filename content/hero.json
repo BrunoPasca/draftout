@@ -1,0 +1,10 @@
+{
+  "eyebrowPhrases": ["DRAFT", "RACE", "LOCKOUT", "WIN"],
+  "headline": {
+    "lineOne": "Draft your board.",
+    "lineTwo": "Race to thirteen."
+  },
+  "subhead": "Competitive lockout bingo for two players — identical worlds, same seed, first to complete 13 of 25 drafted goals wins.",
+  "primaryCta": { "label": "Play free", "href": "#cta" },
+  "secondaryCta": { "label": "See the board", "href": "#board" }
+}
