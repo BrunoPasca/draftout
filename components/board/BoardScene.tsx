@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { ContactShadows } from "@react-three/drei";
+import { ContactShadows, OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom, ChromaticAberration } from "@react-three/postprocessing";
 import { useReducedMotion } from "framer-motion";
 import { BlendFunction } from "postprocessing";
@@ -61,8 +61,19 @@ export function BoardScene({
           reduced={reduced ?? false}
         />
 
+        {!reduced && !isClimax && (
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            autoRotate
+            autoRotateSpeed={0.9}
+            minPolarAngle={Math.PI / 4.5}
+            maxPolarAngle={Math.PI / 2.1}
+          />
+        )}
+
         <ContactShadows
-          position={[0, -0.05, 0]}
+          position={[0, -0.5, 0]}
           opacity={0.55}
           scale={3.2}
           blur={2}
