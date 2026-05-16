@@ -2,10 +2,9 @@
 
 import dynamic from "next/dynamic";
 import { motion, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useBoardTimeline } from "@/lib/board-timeline";
 import { BoardHud } from "@/components/board/hud/BoardHud";
-import type { ClaimEvent } from "@/lib/board-timeline";
 
 const BoardScene = dynamic(
   () => import("@/components/board/BoardScene").then((m) => m.BoardScene),
@@ -20,26 +19,10 @@ const BoardScene = dynamic(
   },
 );
 
-const HISTORY_LIMIT = 6;
-
 export function BoardShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { margin: "-80px", amount: 0.2 });
   const timeline = useBoardTimeline({ active: inView });
-  const [history, setHistory] = useState<ClaimEvent[]>([]);
-
-  useEffect(() => {
-    if (!timeline.lastClaim) return;
-    setHistory((prev) => [...prev, timeline.lastClaim!].slice(-HISTORY_LIMIT));
-  }, [timeline.lastClaim]);
-
-  const prevStep = useRef(timeline.step);
-  useEffect(() => {
-    if (prevStep.current > 0 && timeline.step === 0) {
-      setHistory([]);
-    }
-    prevStep.current = timeline.step;
-  }, [timeline.step]);
 
   const latestIndex = timeline.lastClaim?.index ?? null;
 
@@ -60,14 +43,7 @@ export function BoardShowcase() {
         isClimax={timeline.isClimax}
         className="h-full w-full"
       />
-      <BoardHud
-        scores={timeline.scores}
-        activePlayer={timeline.activePlayer}
-        history={history}
-        lastClaim={timeline.lastClaim}
-        isClimax={timeline.isClimax}
-        winner={timeline.winner}
-      />
+      <BoardHud isClimax={timeline.isClimax} winner={timeline.winner} />
     </motion.div>
   );
 }
