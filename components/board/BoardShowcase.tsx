@@ -43,7 +43,7 @@ export function BoardShowcase() {
         isClimax={timeline.isClimax}
         className="h-full w-full"
       />
-      <BoardHud isClimax={timeline.isClimax} winner={timeline.winner} />
+      <BoardHud isClimax={timeline.isClimax} />
     </motion.div>
   );
 }
