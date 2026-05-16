@@ -14,6 +14,12 @@
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
+/* Ambient decorative motion exception (per docs/plans/2026-05-16-board-revamp-design.md):
+   BorderBeam needs offset-path animation, which Framer Motion can't drive directly. */
+@keyframes border-beam {
+  100% { offset-distance: 100%; }
+}
+
 html {
   scroll-behavior: smooth;
 }
